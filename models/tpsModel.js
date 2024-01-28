@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const schema = mongoose.Schema(
+const Tps = mongoose.Schema(
   {
   nama: {
       type: String,
@@ -23,12 +23,12 @@ const schema = mongoose.Schema(
       type: String,
       required: [true, "Please add a longitude"],
   },
-  wilayah: {
+  kelurahan: {
       type: String,
-      required: [true, "Please add a wilayah"],
+      required: [true, "Please add a kelurahan"],
   },
   sampah_masuk: {
-    type: String,
+    type: Number,
     required: [true, "Please add a sampah daily"],
     },
   },
@@ -36,7 +36,7 @@ const schema = mongoose.Schema(
   timestamps: true,
   });
 
-module.exports = mongoose.model("Tps", schema);
+module.exports = mongoose.model("Tps", Tps);
 
 // module.exports = mongoose => {
 //     const schema = mongoose.Schema(
@@ -61,9 +61,9 @@ module.exports = mongoose.model("Tps", schema);
 //           type: String,
 //           required: [true, "Please add a longitude"],
 //         },
-//         wilayah: {
+//         kelurahan: {
 //           type: String,
-//           required: [true, "Please add a wilayah"],
+//           required: [true, "Please add a kelurahan"],
 //         },
 //       },
 //       {

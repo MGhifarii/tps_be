@@ -75,7 +75,7 @@ exports.store = async (req, res) => {
         nama : 'string|empty:false',
         kecamatan : 'string|empty:false',
         deskripsi : 'string|empty:false',
-        wilayah : 'string|empty:false',
+        kelurahan : 'string|empty:false',
         latitude : 'string|empty:false',
         longitude : 'string|empty:false',
         sampah_masuk : 'string|empty:false',
@@ -101,7 +101,7 @@ exports.update = async (req, res) => {
         nama : 'string|empty:false',
         kecamatan : 'string|empty:false',
         deskripsi : 'string|empty:false',
-        wilayah : 'string|empty:false',
+        kelurahan : 'string|empty:false',
         latitude : 'string|empty:false',
         longitude : 'string|empty:false',
         sampah_masuk : 'string|empty:false',
@@ -171,7 +171,7 @@ exports.destroy = async (req, res) => {
 //     deskripsi: req.body.deskripsi,
 //     latitude: req.body.latitude,
 //     longitude: req.body.longitude,
-//     wilayah: req.body.wilayah,
+//     kelurahan: req.body.kelurahan,
 //     published: req.body.published ? req.body.published : false
 //   });
 

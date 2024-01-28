@@ -5,14 +5,13 @@ const {Tps} = require('../models');
 
 async function buildPDF(dataCallback, endCallback) {
     var tps = await Tps.findAll({
-        include: ['category']
     });
 
     let mapTps = tps.map((tps, index) => ({
         no: index+1,
         nama: tps.nama,
         kecamatan: tps.kecamatan,
-        wilayah: tps.wilayah,
+        kelurahan: tps.kelurahan,
     }))
 
     let doc = new PDFDocument({ margin: 30, size: 'A4' });
@@ -31,7 +30,7 @@ async function buildPDF(dataCallback, endCallback) {
           { "label":"No", "property":"no", "width":20 },
           { "label":"Nama", "property":"nama", "width":100 },
           { "label":"Kecamatan", "property":"kecamatan", "width":320 },
-          { "label":"Wilayah", "property":"wilayah", "width":100 },
+          { "label":"kelurahan", "property":"kelurahan", "width":100 },
         ],
         "datas": mapTps,
         "options": {
