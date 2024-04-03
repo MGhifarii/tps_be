@@ -537,3 +537,60 @@ exports.jmlhSampahMasuk = async (req, res) => {
         res.status(500).json({ success: 'false', message: error.message });
     }
 };
+
+exports.statistikaDeskriptif = async (req, res) => {
+    try {
+        // Hitung jumlah sampah masuk per kecamatan
+        const jumlahSampah = await Tps.aggregate([
+            {
+                $match: {
+                    kecamatan: { $regex: new RegExp(req.params.kecamatan, "i") }
+                }
+            },
+            {
+                $group: {
+                    _id: '$kecamatan',
+                    sampahMasuk: { $sum: '$sampah_masuk' }
+                }
+            }
+        ]);
+
+        // Hitung jumlah sampah masuk secara total
+        const totalSampahMasuk = await Tps.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalSampahMasuk: { $sum: '$sampah_masuk' }
+                }
+            }
+        ]);
+        console.log(totalSampahMasuk)
+        // Ambil nilai total sampah masuk dari hasil agregasi
+        const totalSampahMasukValue = totalSampahMasuk.length > 0 ? totalSampahMasuk[0].totalSampahMasuk : 0;
+        console.log(totalSampahMasuk[0].totalSampahMasuk)
+        // Hitung jumlah kecamatan
+        const jumlahKecamatan = await Tps.distinct('kecamatan').count();
+
+        // Hitung rata-rata sampah masuk per kecamatan
+        const mean = totalSampahMasukValue / 30;
+
+        // Hitung standar deviasi
+        let sigma = 0;
+        jumlahSampah.forEach(element => {
+            const temp = element.sampahMasuk - mean;
+            const kuadrat = temp * temp;
+            sigma = sigma + kuadrat;
+        });
+        console.log(mean)
+        const standar_deviasi = Math.sqrt(sigma / 29);
+
+        // Hitung batas atas dan batas bawah
+        const batasAtas = mean + (0.5 * standar_deviasi);
+        const batasBawah = mean - (0.5 * standar_deviasi);
+
+        // Mengembalikan hasil
+        res.json({ batasBawah: batasBawah, batasAtas: batasAtas });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

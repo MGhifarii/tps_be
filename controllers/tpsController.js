@@ -12,12 +12,6 @@ exports.index = async (req, res) => {
 
         if(req.query.search) {
             tps = await Tps.find(
-                // where : {
-                //     nama : {
-                //         [Op.like]: '%' + req.query.search + '%'
-                //     }
-                // },
-                // include: ['category']
             )
         }
 

@@ -4,7 +4,8 @@ const {
   getBatas,
   checkKlasifikasi,
   getJumlah,
-  jmlhSampahMasuk
+  jmlhSampahMasuk,
+  statistikaDeskriptif
 } = require('../controllers/analisisController');
 
 // import excel
@@ -15,5 +16,7 @@ router.get('/check/:kecamatan', checkKlasifikasi);
 router.get('/jumlah/:kecamatan', getJumlah);
 
 router.get('/jumlahSampah/:kecamatan', jmlhSampahMasuk);
+
+router.get('/sd', statistikaDeskriptif);
 
 module.exports = router;
